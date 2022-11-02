@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        tabLayout = findViewById(R.id.tab_indicator);
         bannerMoviesList = new ArrayList<>();
         bannerMoviesList.add(new BannerMovies(1,"The walking dead", "https://i.pinimg.com/originals/91/0d/67/910d67f4f41a771e3f5f0c50c8f8dd0e.jpg", ""));
         bannerMoviesList.add(new BannerMovies(2,"Star Wars: Andor", "https://www.starwarsnewsnet.com/wp-content/uploads/2022/08/AndorBanner-800x445.jpg", ""));
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         bannerMoviesViewPager = findViewById(R.id.banner_viewPager);
         bannerMoviesPagesAdapter = new BannerMoviesPagesAdapter(this, bannerMoviesList);
         bannerMoviesViewPager.setAdapter(bannerMoviesPagesAdapter);
-
+        tabLayout.setupWithViewPager(bannerMoviesViewPager);
 
     }
 }
