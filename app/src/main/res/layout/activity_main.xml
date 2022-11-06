@@ -56,6 +56,7 @@
     </com.google.android.material.tabs.TabLayout>
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -78,8 +79,17 @@
             app:tabBackground="@drawable/inidicator_selector"
             app:tabIndicator="@color/black"
             app:tabIndicatorHeight="0dp"
-            app:tabRippleColor="#ED0000" />
+            app:tabRippleColor="#126A6A6A" />
 
 
     </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_recycler"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>
