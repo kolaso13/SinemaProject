@@ -5,14 +5,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.SearchView;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import com.example.sinemaproject.adapter.BannerMoviesPagesAdapter;
 import com.example.sinemaproject.adapter.MainRecyclerAdapter;
 import com.example.sinemaproject.model.AllCategory;
+import com.example.sinemaproject.model.AllData;
 import com.example.sinemaproject.model.BannerMovies;
 import com.example.sinemaproject.model.CategoryItem;
 import com.google.android.material.tabs.TabLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,17 +44,22 @@ public class MainActivity extends AppCompatActivity {
     List<BannerMovies> kidsBannerList;
     List<BannerMovies> tvBannerList;
 
+    SearchView txtSearch;
+
     MainRecyclerAdapter mainRecyclerAdapter;
     RecyclerView mainRecycler;
     List<AllCategory> allCategoryList;
+    static List<AllData> AllDataList = new ArrayList<AllData>();
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        LeerApi();
         indicatorTab = findViewById(R.id.tab_indicator);
         categoryTab = findViewById(R.id.tablayout);
+        txtSearch= findViewById(R.id.txtSearch);
 
         homeBannerList = new ArrayList<>();
         homeBannerList.add(new BannerMovies(1,"The walking dead", "https://i.pinimg.com/originals/91/0d/67/910d67f4f41a771e3f5f0c50c8f8dd0e.jpg", ""));
@@ -148,5 +169,42 @@ public class MainActivity extends AppCompatActivity {
         mainRecycler.setLayoutManager(layoutManager);
         mainRecyclerAdapter = new MainRecyclerAdapter(this, allCategoryList);
         mainRecycler.setAdapter(mainRecyclerAdapter);
+    }
+
+    private void LeerApi() {
+        String url = "https://api.tvmaze.com/shows";
+        StringRequest postResquest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONArray json = new JSONArray(response);
+                    for (int i = 0; i < json.length(); i++) {
+                        JSONObject Object = json.getJSONObject(i);
+                        Integer id = Object.getInt("id");
+                        String name = Object.getString("name");
+                        String language = Object.getString("language");
+                        String status = Object.getString("status");
+                        String premiered = Object.getString("premiered");
+                        String ended = Object.getString("ended");
+                        String summary = Object.getString("summary");
+                        JSONArray genres = Object.getJSONArray("genres");
+                        Double rating = Object.getJSONObject("rating").isNull("rating") ? 0.0 : Object.getJSONObject("rating").getDouble("average");
+                        String imageOriginal = Object.getJSONObject("image").getString("original");
+                        String imageMedium= Object.getJSONObject("image").getString("medium");
+                        AllData allData = new AllData(id,name,language,status,premiered,ended,summary,genres,rating,imageOriginal,imageMedium);
+                        AllDataList.add(allData);
+                        Log.i("Data", String.valueOf(imageMedium));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.e("Error", error.getMessage());
+            }
+        });
+        Volley.newRequestQueue(this).add(postResquest);
     }
 }
