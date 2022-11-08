@@ -9,9 +9,9 @@ public class AllData {
     Integer id;
     Double rating;
     String name, language, status, premiered, ended, summary,imageOriginal,imageMedium;
-    JSONArray genres;
+    String[] genres;
 
-    public AllData(Integer id, String name, String language, String status, String premiered, String ended, String summary, JSONArray genres, Double rating, String imageOriginal, String imageMedium) {
+    public AllData(Integer id, String name, String language, String status, String premiered, String ended, String summary, String[] genres, Double rating, String imageOriginal, String imageMedium) {
         this.id = id;
         this.name = name;
         this.language = language;
@@ -97,11 +97,11 @@ public class AllData {
         this.summary = summary;
     }
 
-    public JSONArray getGenres() {
+    public String[] getGenres() {
         return genres;
     }
 
-    public void setGenres(JSONArray genres) {
+    public void setGenres(String[] genres) {
         this.genres = genres;
     }
 

@@ -5,13 +5,13 @@ public class CategoryItem {
     Integer id;
     String movieName;
     String imageUrl;
-    String fileUrl;
 
-    public CategoryItem(Integer id, String movieName, String imageUrl, String fileUrl) {
+
+    public CategoryItem(Integer id, String movieName, String imageUrl) {
         this.id = id;
         this.movieName = movieName;
         this.imageUrl = imageUrl;
-        this.fileUrl = fileUrl;
+
     }
 
     public Integer getId() {
@@ -38,11 +38,4 @@ public class CategoryItem {
         this.imageUrl = imageUrl;
     }
 
-    public String getFileUrl() {
-        return fileUrl;
-    }
-
-    public void setFileUrl(String fileUrl) {
-        this.fileUrl = fileUrl;
-    }
 }
