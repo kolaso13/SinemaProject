@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,7 +60,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        LeerApi();
+//        LeerApi();
+        SeriesTask serTaks = new SeriesTask();
+        serTaks.execute("");
 
         indicatorTab = findViewById(R.id.tab_indicator);
         txtSearch= findViewById(R.id.txtSearch);
@@ -77,11 +80,15 @@ public class MainActivity extends AppCompatActivity {
         List<CategoryItem> homeCatListItem1 = new ArrayList<>();
 
         Log.i("Size", String.valueOf(AllDataList.size()));
+        homeCatListItem1.add(new CategoryItem(1, "under-the-dome", "https://static.tvmaze.com/uploads/images/original_untouched/81/202627.jpg"));
+        homeCatListItem1.add(new CategoryItem(2, "under-the-dome", "https://static.tvmaze.com/uploads/images/original_untouched/81/202627.jpg"));
+        homeCatListItem1.add(new CategoryItem(3, "under-the-dome", "https://static.tvmaze.com/uploads/images/original_untouched/81/202627.jpg"));
+
         for (AllData item:AllDataList) {
             Log.i("Entro for","");
             for(int i=0;i<item.getGenres().length;i++){
                 if(item.getGenres()[i]== "Drama"){
-                    homeCatListItem1.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal()));
+
                 }
             }
         }
@@ -127,50 +134,51 @@ public class MainActivity extends AppCompatActivity {
         mainRecycler.setAdapter(mainRecyclerAdapter);
     }
 
-    private void LeerApi() {
-        String url = "https://api.tvmaze.com/shows";
-        StringRequest postResquest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONArray json = new JSONArray(response);
-                    for (int i = 0; i < json.length(); i++) {
-                        JSONObject Object = json.getJSONObject(i);
-                        Integer id = Object.getInt("id");
-                        String name = Object.getString("name");
-                        String language = Object.getString("language");
-                        String status = Object.getString("status");
-                        String premiered = Object.getString("premiered");
-                        String ended = Object.getString("ended");
-                        String summary = Object.getString("summary");
-                        JSONArray genres = Object.getJSONArray("genres");
+//    private void LeerApi() {
+//        String url = "https://api.tvmaze.com/shows";
+//        StringRequest postResquest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                try {
+//                    JSONArray json = new JSONArray(response);
+//                    for (int i = 0; i < json.length(); i++) {
+//                        JSONObject Object = json.getJSONObject(i);
+//                        Integer id = Object.getInt("id");
+//                        String name = Object.getString("name");
+//                        String language = Object.getString("language");
+//                        String status = Object.getString("status");
+//                        String premiered = Object.getString("premiered");
+//                        String ended = Object.getString("ended");
+//                        String summary = Object.getString("summary");
+//                        JSONArray genres = Object.getJSONArray("genres");
+//
+//                        ArrayList<String> exampleList = new ArrayList<String>();
+//                        for (int j = 0; j < genres.length(); j++) {
+//                            exampleList.add((String) genres.get(j));
+//                        }
+//                        int size = exampleList.size();
+//                        String[] GenresstringArray = exampleList.toArray(new String[size]);
+//
+//                        Double rating = Object.getJSONObject("rating").isNull("rating") ? 0.0 : Object.getJSONObject("rating").getDouble("average");
+//                        String imageOriginal = Object.getJSONObject("image").getString("original");
+//                        String imageMedium= Object.getJSONObject("image").getString("medium");
+//                        AllData allData = new AllData(id,name,language,status,premiered,ended,summary,GenresstringArray,rating,imageOriginal,imageMedium);
+//                        AllDataList.add(allData);
+//
+////                        Log.i("Genre", String.valueOf(genres));
+//
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.e("Error", error.getMessage());
+//            }
+//        });
+//        Volley.newRequestQueue(this).add(postResquest);
+//    }
 
-                        ArrayList<String> exampleList = new ArrayList<String>();
-                        for (int j = 0; j < genres.length(); j++) {
-                            exampleList.add((String) genres.get(j));
-                        }
-                        int size = exampleList.size();
-                        String[] GenresstringArray = exampleList.toArray(new String[size]);
-
-                        Double rating = Object.getJSONObject("rating").isNull("rating") ? 0.0 : Object.getJSONObject("rating").getDouble("average");
-                        String imageOriginal = Object.getJSONObject("image").getString("original");
-                        String imageMedium= Object.getJSONObject("image").getString("medium");
-                        AllData allData = new AllData(id,name,language,status,premiered,ended,summary,GenresstringArray,rating,imageOriginal,imageMedium);
-                        AllDataList.add(allData);
-
-//                        Log.i("Genre", String.valueOf(genres));
-
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e("Error", error.getMessage());
-            }
-        });
-        Volley.newRequestQueue(this).add(postResquest);
-    }
 }
