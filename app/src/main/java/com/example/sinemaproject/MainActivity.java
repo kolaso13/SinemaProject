@@ -1,5 +1,7 @@
 package com.example.sinemaproject;
 
+import static com.example.sinemaproject.PreLoadActivity.AllDataList;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -53,16 +55,12 @@ public class MainActivity extends AppCompatActivity {
     MainRecyclerAdapter mainRecyclerAdapter;
     RecyclerView mainRecycler;
     List<AllCategory> allCategoryList;
-    static List<AllData> AllDataList = new ArrayList<AllData>();
 
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        LeerApi();
-        SeriesTask serTaks = new SeriesTask();
-        serTaks.execute("");
 
         indicatorTab = findViewById(R.id.tab_indicator);
         txtSearch= findViewById(R.id.txtSearch);
@@ -76,27 +74,47 @@ public class MainActivity extends AppCompatActivity {
 
         //Banner
         setBannerMoviesPagesAdapter(homeBannerList);
-        Log.i("LLego al array","1");
-        List<CategoryItem> homeCatListItem1 = new ArrayList<>();
-
+        List<CategoryItem> DramaCatListItem1 = new ArrayList<>();
+        List<CategoryItem> ComedyCatListItem1 = new ArrayList<>();
+        List<CategoryItem> ActionCatListItem1 = new ArrayList<>();
+        List<CategoryItem> AventureCatListItem1 = new ArrayList<>();
+        List<CategoryItem> CrimeCatListItem1 = new ArrayList<>();
+        List<CategoryItem> ScienceFictionCatListItem1 = new ArrayList<>();
         Log.i("Size", String.valueOf(AllDataList.size()));
-        homeCatListItem1.add(new CategoryItem(1, "under-the-dome", "https://static.tvmaze.com/uploads/images/original_untouched/81/202627.jpg"));
-        homeCatListItem1.add(new CategoryItem(2, "under-the-dome", "https://static.tvmaze.com/uploads/images/original_untouched/81/202627.jpg"));
-        homeCatListItem1.add(new CategoryItem(3, "under-the-dome", "https://static.tvmaze.com/uploads/images/original_untouched/81/202627.jpg"));
+
+
 
         for (AllData item:AllDataList) {
-            Log.i("Entro for","");
             for(int i=0;i<item.getGenres().length;i++){
-                if(item.getGenres()[i]== "Drama"){
-
+                Log.i("Size", String.valueOf(item.getGenres()[i]));
+                if(item.getGenres()[i].equalsIgnoreCase("Drama")){
+                    DramaCatListItem1.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                }
+                if(item.getGenres()[i].equalsIgnoreCase("Comedy")){
+                    ComedyCatListItem1.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                }
+                if(item.getGenres()[i].equalsIgnoreCase("Action")){
+                    ActionCatListItem1.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                }
+                if(item.getGenres()[i].equalsIgnoreCase("Adventure")){
+                    AventureCatListItem1.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                }
+                if(item.getGenres()[i].equalsIgnoreCase("Crime")){
+                    CrimeCatListItem1.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                }
+                if(item.getGenres()[i].equalsIgnoreCase("Science-Fiction")){
+                    ScienceFictionCatListItem1.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
                 }
             }
         }
 
         allCategoryList = new ArrayList<>();
-        allCategoryList.add(new AllCategory(1, "Categoria1", homeCatListItem1));
-        allCategoryList.add(new AllCategory(2, "Categoria2",homeCatListItem1));
-        allCategoryList.add(new AllCategory(3, "Categoria3",homeCatListItem1));
+        allCategoryList.add(new AllCategory(1, "Drama", DramaCatListItem1));
+        allCategoryList.add(new AllCategory(2, "Comedia", ComedyCatListItem1));
+        allCategoryList.add(new AllCategory(3, "Acción",ActionCatListItem1));
+        allCategoryList.add(new AllCategory(4, "Aventura",AventureCatListItem1));
+        allCategoryList.add(new AllCategory(5, "Suspense",CrimeCatListItem1));
+        allCategoryList.add(new AllCategory(6, "Ciencia-Ficción",ScienceFictionCatListItem1));
 
         //Pasamos el array de categorias al recycler
         setMainRecycler(allCategoryList);
@@ -134,51 +152,6 @@ public class MainActivity extends AppCompatActivity {
         mainRecycler.setAdapter(mainRecyclerAdapter);
     }
 
-//    private void LeerApi() {
-//        String url = "https://api.tvmaze.com/shows";
-//        StringRequest postResquest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String response) {
-//                try {
-//                    JSONArray json = new JSONArray(response);
-//                    for (int i = 0; i < json.length(); i++) {
-//                        JSONObject Object = json.getJSONObject(i);
-//                        Integer id = Object.getInt("id");
-//                        String name = Object.getString("name");
-//                        String language = Object.getString("language");
-//                        String status = Object.getString("status");
-//                        String premiered = Object.getString("premiered");
-//                        String ended = Object.getString("ended");
-//                        String summary = Object.getString("summary");
-//                        JSONArray genres = Object.getJSONArray("genres");
-//
-//                        ArrayList<String> exampleList = new ArrayList<String>();
-//                        for (int j = 0; j < genres.length(); j++) {
-//                            exampleList.add((String) genres.get(j));
-//                        }
-//                        int size = exampleList.size();
-//                        String[] GenresstringArray = exampleList.toArray(new String[size]);
-//
-//                        Double rating = Object.getJSONObject("rating").isNull("rating") ? 0.0 : Object.getJSONObject("rating").getDouble("average");
-//                        String imageOriginal = Object.getJSONObject("image").getString("original");
-//                        String imageMedium= Object.getJSONObject("image").getString("medium");
-//                        AllData allData = new AllData(id,name,language,status,premiered,ended,summary,GenresstringArray,rating,imageOriginal,imageMedium);
-//                        AllDataList.add(allData);
-//
-////                        Log.i("Genre", String.valueOf(genres));
-//
-//                    }
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.e("Error", error.getMessage());
-//            }
-//        });
-//        Volley.newRequestQueue(this).add(postResquest);
-//    }
+
 
 }
