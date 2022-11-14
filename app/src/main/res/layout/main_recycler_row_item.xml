@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#0F171E">
+    android:background="#000000">
 
     <TextView
         android:id="@+id/item_category"
@@ -15,6 +15,7 @@
         android:fontFamily="@font/montserrat_bold"
         android:text="TextView"
         android:textColor="#FFFFFF"
+        android:textSize="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

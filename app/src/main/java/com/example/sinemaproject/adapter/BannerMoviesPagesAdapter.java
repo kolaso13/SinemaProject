@@ -61,7 +61,12 @@ public class BannerMoviesPagesAdapter extends PagerAdapter {
                 i.putExtra("movieId", bannerMoviesList.get(position).getId());
                 i.putExtra("movieName", bannerMoviesList.get(position).getMovieName());
                 i.putExtra("movieImageUrl",bannerMoviesList.get(position).getImageUrl());
-                i.putExtra("movieFile",bannerMoviesList.get(position).getFileUrl());
+                i.putExtra("movieLanguage", bannerMoviesList.get(position).getLanguage());
+                i.putExtra("movieStatus", bannerMoviesList.get(position).getStatus());
+                i.putExtra("moviePremiered", bannerMoviesList.get(position).getPremiered());
+                i.putExtra("movieEnded", bannerMoviesList.get(position).getEnded());
+                i.putExtra("movieSummary", bannerMoviesList.get(position).getSummary());
+                i.putExtra("movieGenres", bannerMoviesList.get(position).getGenres());
                 context.startActivity(i);
             }
         });

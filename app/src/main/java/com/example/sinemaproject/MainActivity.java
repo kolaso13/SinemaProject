@@ -14,6 +14,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SearchView;
 
 import com.android.volley.Request;
@@ -38,12 +39,14 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     BannerMoviesPagesAdapter bannerMoviesPagesAdapter;
     TabLayout indicatorTab, categoryTab;
+    ImageView search;
     ViewPager bannerMoviesViewPager;
     List<BannerMovies> homeBannerList;
     List<BannerMovies> moviesBannerList;
@@ -63,14 +66,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         indicatorTab = findViewById(R.id.tab_indicator);
-        txtSearch= findViewById(R.id.txtSearch);
+        search = findViewById(R.id.search);
 
+        Random r = new Random();
+        int randomN1 = r.nextInt(AllDataList.size());
+        int randomN2 = r.nextInt(AllDataList.size());
+        int randomN3 = r.nextInt(AllDataList.size());
+        int randomN4 = r.nextInt(AllDataList.size());
         homeBannerList = new ArrayList<>();
-        homeBannerList.add(new BannerMovies(1,"The walking dead", "https://i.pinimg.com/originals/91/0d/67/910d67f4f41a771e3f5f0c50c8f8dd0e.jpg", ""));
-        homeBannerList.add(new BannerMovies(2,"Star Wars: Andor", "https://www.starwarsnewsnet.com/wp-content/uploads/2022/08/AndorBanner-800x445.jpg", ""));
-        homeBannerList.add(new BannerMovies(3,"X-Men", "https://webneel.net/file/images/11-16/8-xmen-movie-poster-design.preview.jpg", ""));
-        homeBannerList.add(new BannerMovies(4,"Matrix", "https://www.whatisthematrix.com/assets/images/desktopbanner.jpg", ""));
-        homeBannerList.add(new BannerMovies(5,"The Hobbit", "https://alishahussain27.files.wordpress.com/2014/11/the-hobbit-the-desolation-of-smaug-2013-movie-banner-poster.jpg", ""));
+
+        homeBannerList.add(new BannerMovies(AllDataList.get(randomN1).getId(), AllDataList.get(randomN1).getName(), AllDataList.get(randomN1).getImageOriginal(), AllDataList.get(randomN1).getLanguage(), AllDataList.get(randomN1).getStatus(), AllDataList.get(randomN1).getPremiered(), AllDataList.get(randomN1).getEnded(), AllDataList.get(randomN1).getSummary(), AllDataList.get(randomN1).getGenres()));
+        homeBannerList.add(new BannerMovies(AllDataList.get(randomN2).getId(), AllDataList.get(randomN2).getName(), AllDataList.get(randomN2).getImageOriginal(), AllDataList.get(randomN2).getLanguage(), AllDataList.get(randomN2).getStatus(), AllDataList.get(randomN2).getPremiered(), AllDataList.get(randomN2).getEnded(), AllDataList.get(randomN2).getSummary(), AllDataList.get(randomN2).getGenres()));
+        homeBannerList.add(new BannerMovies(AllDataList.get(randomN3).getId(), AllDataList.get(randomN3).getName(), AllDataList.get(randomN3).getImageOriginal(), AllDataList.get(randomN3).getLanguage(), AllDataList.get(randomN3).getStatus(), AllDataList.get(randomN3).getPremiered(), AllDataList.get(randomN3).getEnded(), AllDataList.get(randomN3).getSummary(), AllDataList.get(randomN3).getGenres()));
+        homeBannerList.add(new BannerMovies(AllDataList.get(randomN4).getId(), AllDataList.get(randomN4).getName(), AllDataList.get(randomN4).getImageOriginal(), AllDataList.get(randomN4).getLanguage(), AllDataList.get(randomN4).getStatus(), AllDataList.get(randomN4).getPremiered(), AllDataList.get(randomN4).getEnded(), AllDataList.get(randomN4).getSummary(), AllDataList.get(randomN4).getGenres()));
 
         //Banner
         setBannerMoviesPagesAdapter(homeBannerList);
@@ -118,6 +126,14 @@ public class MainActivity extends AppCompatActivity {
 
         //Pasamos el array de categorias al recycler
         setMainRecycler(allCategoryList);
+
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                MainActivity.this.startActivity(intent);
+            }
+        });
     }
     private void setBannerMoviesPagesAdapter(List<BannerMovies> bannerMoviesList){
         bannerMoviesViewPager = findViewById(R.id.banner_viewPager);

@@ -1,6 +1,7 @@
 package com.example.sinemaproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -28,11 +29,14 @@ public class PreLoadActivity extends AppCompatActivity {
 
     public static ArrayList<AllData> listaCompleta = new ArrayList<>();
     ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_load);
         progressBar = findViewById(R.id.progressBar);
+
 
         new Task1().execute();
     }

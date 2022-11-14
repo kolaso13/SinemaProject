@@ -2,15 +2,19 @@ package com.example.sinemaproject.model;
 
 public class BannerMovies {
     Integer id;
-    String movieName;
-    String imageUrl;
-    String fileUrl;
+    String movieName, imageUrl, language, status, premiered, ended, summary;
+    String[] genres;
 
-    public BannerMovies(Integer id, String movieName, String imageUrl, String fileUrl) {
+    public BannerMovies(Integer id, String movieName, String imageUrl, String language, String status, String premiered, String ended, String summary, String[] genres) {
         this.id = id;
         this.movieName = movieName;
         this.imageUrl = imageUrl;
-        this.fileUrl = fileUrl;
+        this.language = language;
+        this.status = status;
+        this.premiered = premiered;
+        this.ended = ended;
+        this.summary = summary;
+        this.genres = genres;
     }
 
     public Integer getId() {
@@ -37,11 +41,51 @@ public class BannerMovies {
         this.imageUrl = imageUrl;
     }
 
-    public String getFileUrl() {
-        return fileUrl;
+    public String getLanguage() {
+        return language;
     }
 
-    public void setFileUrl(String fileUrl) {
-        this.fileUrl = fileUrl;
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getPremiered() {
+        return premiered;
+    }
+
+    public void setPremiered(String premiered) {
+        this.premiered = premiered;
+    }
+
+    public String getEnded() {
+        return ended;
+    }
+
+    public void setEnded(String ended) {
+        this.ended = ended;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public String[] getGenres() {
+        return genres;
+    }
+
+    public void setGenres(String[] genres) {
+        this.genres = genres;
     }
 }
