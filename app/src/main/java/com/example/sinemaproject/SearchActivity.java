@@ -6,8 +6,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.widget.EditText;
 import android.widget.SearchView;
 
 import com.example.sinemaproject.adapter.ItemRecyclerAdapter;
@@ -17,17 +22,19 @@ import com.example.sinemaproject.model.CategoryItem;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SearchActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
     List<CategoryItem> search_movies;
     private SearchView svSearch;
     private RecyclerView rvLista;
+
     SearchRecyclerAdapter searchRecyclerAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
-
 
         svSearch = findViewById(R.id.svSearch);
         rvLista = findViewById(R.id.rvLista);
@@ -45,8 +52,10 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
         svSearch.setOnQueryTextListener(this);
 
     }
+
     @Override
     public boolean onQueryTextSubmit(String s) {
+        searchRecyclerAdapter.filter(s);
         return false;
     }
 

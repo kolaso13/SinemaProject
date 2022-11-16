@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,7 +76,8 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
     }
 
     public void filter(String strSearch){
-        if(strSearch.length()== 0){
+        Log.i("Text", strSearch);
+        if(strSearch.length() == 0){
             searchList.clear();
             searchList.addAll(original_searchList);
         }
@@ -86,17 +88,19 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
                         .collect(Collectors.toList());
                 searchList.clear();
                 searchList.addAll(collect);
+                notifyDataSetChanged();
             }
             else{
                 searchList.clear();
                 for (CategoryItem item:searchList) {
                     if(item.getMovieName().toLowerCase().contains(strSearch)){
                         searchList.add(item);
+                        notifyDataSetChanged();
                     }
                 }
             }
         }
-        notifyDataSetChanged();
+
     }
 
     public void  setItem(List<CategoryItem> items){searchList = items;}

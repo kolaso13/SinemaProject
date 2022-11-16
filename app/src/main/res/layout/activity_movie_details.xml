@@ -142,4 +142,16 @@
         android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/ended"
         app:layout_constraintTop_toTopOf="@+id/textView12" />
+
+    <ImageView
+        android:id="@+id/imgFavorite"
+        android:layout_width="40dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="24dp"
+        app:layout_constraintBottom_toBottomOf="@+id/movie_name"
+        app:layout_constraintStart_toEndOf="@+id/movie_name"
+        app:layout_constraintTop_toTopOf="@+id/movie_name"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/ic_action_nofavorite" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
