@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     List<BannerMovies> moviesBannerList;
     List<BannerMovies> kidsBannerList;
     List<BannerMovies> tvBannerList;
-    static List<String> FavoriteMovies = new ArrayList();
+    static List<Integer> FavoriteMovies = new ArrayList();
     SearchView txtSearch;
 
     MainRecyclerAdapter mainRecyclerAdapter;

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +22,14 @@ public class MovieDetails extends AppCompatActivity {
 
     ImageView movieImage, favorite;
     TextView movieName, movieLanguage, movieStatus, moviePremiered, movieEnded, movieSummary, moviegenres;
-    String mName, mImage, mId, mLanguage,mStatus,mPremiered,mEnded,mSummary;
+    String mName;
+    String mImage;
+    int mId;
+    String mLanguage;
+    String mStatus;
+    String mPremiered;
+    String mEnded;
+    String mSummary;
     String[] mGenres;
 
 
@@ -41,16 +49,17 @@ public class MovieDetails extends AppCompatActivity {
         movieSummary = findViewById(R.id.Summary);
         moviegenres = findViewById(R.id.genres);
 
+        Bundle extras = getIntent().getExtras();
 
-        mId = getIntent().getStringExtra("movieId");
-        mName = getIntent().getStringExtra("movieName");
-        mImage = getIntent().getStringExtra("movieImageUrl");
-        mLanguage = getIntent().getStringExtra("movieLanguage");
-        mStatus = getIntent().getStringExtra("movieStatus");
-        mPremiered = getIntent().getStringExtra("moviePremiered");
-        mEnded = getIntent().getStringExtra("movieEnded");
-        mSummary = getIntent().getStringExtra("movieSummary");
-        mGenres = getIntent().getStringArrayExtra("movieGenres");
+        mId = extras.getInt("movieId");
+        mName = extras.getString("movieName");
+        mImage = extras.getString("movieImageUrl");
+        mLanguage = extras.getString("movieLanguage");
+        mStatus = extras.getString("movieStatus");
+        mPremiered = extras.getString("moviePremiered");
+        mEnded = extras.getString("movieEnded");
+        mSummary = extras.getString("movieSummary");
+        mGenres = extras.getStringArray("movieGenres");
 
         Glide.with(this).load(mImage).into(movieImage);
         movieName.setText(mName);
@@ -64,15 +73,24 @@ public class MovieDetails extends AppCompatActivity {
         favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                for (int i=0; i<FavoriteMovies.size();i++) {
-                    if (FavoriteMovies.get(i) == mId) {
-                        Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_nofavorite);
-                        favorite.setImageDrawable(img);
-                        FavoriteMovies.remove(i);
-                    } else {
-                        Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_favorite);
-                        favorite.setImageDrawable(img);
-                        FavoriteMovies.add(mId);
+                Log.i("Size", String.valueOf(FavoriteMovies.size()));
+                if(FavoriteMovies.isEmpty()) {
+                    Log.i("Hola", "Fu");
+                    Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_favorite);
+                    favorite.setImageDrawable(img);
+                    FavoriteMovies.add(mId);
+                }else{
+                    for (int i = 0; i < FavoriteMovies.size(); i++) {
+                        Log.i("", "");
+                        if (FavoriteMovies.get(i) == mId) {
+                            Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_nofavorite);
+                            favorite.setImageDrawable(img);
+                            FavoriteMovies.remove(i);
+                        } else {
+                            Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_favorite);
+                            favorite.setImageDrawable(img);
+                            FavoriteMovies.add(mId);
+                        }
                     }
                 }
             }
