@@ -54,13 +54,11 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
     BannerMoviesPagesAdapter bannerMoviesPagesAdapter;
-    TabLayout indicatorTab, categoryTab;
+    TabLayout indicatorTab;
     ImageView search;
     ViewPager bannerMoviesViewPager;
     List<BannerMovies> homeBannerList;
-    List<BannerMovies> moviesBannerList;
-    List<BannerMovies> kidsBannerList;
-    List<BannerMovies> tvBannerList;
+
     public static List<Integer> FavoriteMovies;
     TextView appTitle;
 
@@ -78,24 +76,28 @@ public class MainActivity extends AppCompatActivity {
         search = findViewById(R.id.search);
         appTitle = findViewById(R.id.applicationTitle);
 
-        // calling method to load data
-        // from shared prefs.
+        // llamada al metodo para cargar las preferencias
         loadData();
 
+        //Numeros random para el carrusel
         Random r = new Random();
         int randomN1 = r.nextInt(AllDataList.size());
         int randomN2 = r.nextInt(AllDataList.size());
         int randomN3 = r.nextInt(AllDataList.size());
         int randomN4 = r.nextInt(AllDataList.size());
-        homeBannerList = new ArrayList<>();
 
+        //Añadimos series random para el carrusel
+        homeBannerList = new ArrayList<>();
         homeBannerList.add(new BannerMovies(AllDataList.get(randomN1).getId(), AllDataList.get(randomN1).getName(), AllDataList.get(randomN1).getImageOriginal(), AllDataList.get(randomN1).getLanguage(), AllDataList.get(randomN1).getStatus(), AllDataList.get(randomN1).getPremiered(), AllDataList.get(randomN1).getEnded(), AllDataList.get(randomN1).getSummary(), AllDataList.get(randomN1).getGenres()));
         homeBannerList.add(new BannerMovies(AllDataList.get(randomN2).getId(), AllDataList.get(randomN2).getName(), AllDataList.get(randomN2).getImageOriginal(), AllDataList.get(randomN2).getLanguage(), AllDataList.get(randomN2).getStatus(), AllDataList.get(randomN2).getPremiered(), AllDataList.get(randomN2).getEnded(), AllDataList.get(randomN2).getSummary(), AllDataList.get(randomN2).getGenres()));
         homeBannerList.add(new BannerMovies(AllDataList.get(randomN3).getId(), AllDataList.get(randomN3).getName(), AllDataList.get(randomN3).getImageOriginal(), AllDataList.get(randomN3).getLanguage(), AllDataList.get(randomN3).getStatus(), AllDataList.get(randomN3).getPremiered(), AllDataList.get(randomN3).getEnded(), AllDataList.get(randomN3).getSummary(), AllDataList.get(randomN3).getGenres()));
         homeBannerList.add(new BannerMovies(AllDataList.get(randomN4).getId(), AllDataList.get(randomN4).getName(), AllDataList.get(randomN4).getImageOriginal(), AllDataList.get(randomN4).getLanguage(), AllDataList.get(randomN4).getStatus(), AllDataList.get(randomN4).getPremiered(), AllDataList.get(randomN4).getEnded(), AllDataList.get(randomN4).getSummary(), AllDataList.get(randomN4).getGenres()));
 
-        //Banner
+        //Añadimos las series al adaptador
         setBannerMoviesPagesAdapter(homeBannerList);
+
+
+        //Creamos las listas con las diferentes categorias
         List<CategoryItem> DramaCatListItem1 = new ArrayList<>();
         List<CategoryItem> ComedyCatListItem1 = new ArrayList<>();
         List<CategoryItem> ActionCatListItem1 = new ArrayList<>();
@@ -105,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i("Size", String.valueOf(AllDataList.size()));
 
 
-
+        //Filtramos en las categorias todos los datos recogidos de la API
         for (AllData item:AllDataList) {
             for(int i=0;i<item.getGenres().length;i++){
                 Log.i("Size", String.valueOf(item.getGenres()[i]));
@@ -130,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        //Añadimos las categorias para mostrarlas en el main con sus peliculas
         allCategoryList = new ArrayList<>();
         allCategoryList.add(new AllCategory(1, "Drama", DramaCatListItem1));
         allCategoryList.add(new AllCategory(2, "Comedia", ComedyCatListItem1));
@@ -141,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         //Pasamos el array de categorias al recycler
         setMainRecycler(allCategoryList);
 
+        //Boton para buscar
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -149,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Boton para guardar preferencias
         appTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,6 +161,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
     private void setBannerMoviesPagesAdapter(List<BannerMovies> bannerMoviesList){
         bannerMoviesViewPager = findViewById(R.id.banner_viewPager);
         bannerMoviesPagesAdapter = new BannerMoviesPagesAdapter(this, bannerMoviesList);
@@ -189,20 +196,12 @@ public class MainActivity extends AppCompatActivity {
         mainRecycler.setAdapter(mainRecyclerAdapter);
     }
 
+    //Guardamos los favoritos en Shared Pref
     private void saveData() {
-        // method for saving the data in array list.
-        // creating a variable for storing data in
-        // shared preferences.
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-
-        // creating a variable for editor to
-        // store data in shared preferences.
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        // creating a new variable for gson.
         Gson gson = new Gson();
-
-        // getting data from gson and storing it in a string.
         String json = gson.toJson(FavoriteMovies);
 
         // below line is to save data in shared
