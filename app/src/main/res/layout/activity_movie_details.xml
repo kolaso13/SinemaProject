@@ -21,7 +21,7 @@
 
     <TextView
         android:id="@+id/movie_name"
-        android:layout_width="wrap_content"
+        android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
@@ -151,7 +151,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/movie_name"
         app:layout_constraintStart_toEndOf="@+id/movie_name"
         app:layout_constraintTop_toTopOf="@+id/movie_name"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/ic_action_nofavorite" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

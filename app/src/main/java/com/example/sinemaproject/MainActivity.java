@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +18,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -30,16 +34,21 @@ import com.example.sinemaproject.model.AllData;
 import com.example.sinemaproject.model.BannerMovies;
 import com.example.sinemaproject.model.CategoryItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -52,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
     List<BannerMovies> moviesBannerList;
     List<BannerMovies> kidsBannerList;
     List<BannerMovies> tvBannerList;
-    static List<Integer> FavoriteMovies = new ArrayList();
-    SearchView txtSearch;
+    public static List<Integer> FavoriteMovies;
+    TextView appTitle;
 
     MainRecyclerAdapter mainRecyclerAdapter;
     RecyclerView mainRecycler;
@@ -67,6 +76,11 @@ public class MainActivity extends AppCompatActivity {
 
         indicatorTab = findViewById(R.id.tab_indicator);
         search = findViewById(R.id.search);
+        appTitle = findViewById(R.id.applicationTitle);
+
+        // calling method to load data
+        // from shared prefs.
+        loadData();
 
         Random r = new Random();
         int randomN1 = r.nextInt(AllDataList.size());
@@ -134,6 +148,13 @@ public class MainActivity extends AppCompatActivity {
                 MainActivity.this.startActivity(intent);
             }
         });
+
+        appTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveData();
+            }
+        });
     }
     private void setBannerMoviesPagesAdapter(List<BannerMovies> bannerMoviesList){
         bannerMoviesViewPager = findViewById(R.id.banner_viewPager);
@@ -166,6 +187,62 @@ public class MainActivity extends AppCompatActivity {
         mainRecycler.setLayoutManager(layoutManager);
         mainRecyclerAdapter = new MainRecyclerAdapter(this, allCategoryList);
         mainRecycler.setAdapter(mainRecyclerAdapter);
+    }
+
+    private void saveData() {
+        // method for saving the data in array list.
+        // creating a variable for storing data in
+        // shared preferences.
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+
+        // creating a variable for editor to
+        // store data in shared preferences.
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        // creating a new variable for gson.
+        Gson gson = new Gson();
+
+        // getting data from gson and storing it in a string.
+        String json = gson.toJson(FavoriteMovies);
+
+        // below line is to save data in shared
+        // prefs in the form of string.
+        editor.putString("courses", json);
+
+        // below line is to apply changes
+        // and save data in shared prefs.
+        editor.apply();
+
+        // after saving data we are displaying a toast message.
+        Toast.makeText(this, "Saved Array List to Shared preferences. ", Toast.LENGTH_SHORT).show();
+    }
+
+    private void loadData(){
+        // method to load arraylist from shared prefs
+        // initializing our shared prefs with name as
+        // shared preferences.
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+
+        // creating a variable for gson.
+        Gson gson = new Gson();
+
+        // below line is to get to string present from our
+        // shared prefs if not present setting it as null.
+        String json = sharedPreferences.getString("courses", null);
+
+        // below line is to get the type of our array list.
+        Type type = new TypeToken<ArrayList<Integer>>() {}.getType();
+
+        // in below line we are getting data from gson
+        // and saving it to our array list
+        FavoriteMovies = gson.fromJson(json, type);
+
+        // checking below if the array list is empty or not
+        if (FavoriteMovies == null) {
+            // if the array list is empty
+            // creating a new array list.
+            FavoriteMovies = new ArrayList<>();
+        }
     }
 
 

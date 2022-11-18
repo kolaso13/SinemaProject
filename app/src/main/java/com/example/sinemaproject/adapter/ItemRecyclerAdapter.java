@@ -1,5 +1,7 @@
 package com.example.sinemaproject.adapter;
 
+import static com.example.sinemaproject.MainActivity.FavoriteMovies;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -42,6 +44,7 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
         holder.itemImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                boolean fav = FavoriteMovies.contains(categoryItemList.get(position).getId());
                 Intent i = new Intent(context, MovieDetails.class);
                 i.putExtra("movieId", categoryItemList.get(position).getId());
                 i.putExtra("movieName", categoryItemList.get(position).getMovieName());
@@ -52,6 +55,7 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<ItemRecyclerAdapte
                 i.putExtra("movieEnded", categoryItemList.get(position).getEnded());
                 i.putExtra("movieSummary", categoryItemList.get(position).getSummary());
                 i.putExtra("movieGenres", categoryItemList.get(position).getGenres());
+                i.putExtra("fav", fav);
                 context.startActivity(i);
             }
         });

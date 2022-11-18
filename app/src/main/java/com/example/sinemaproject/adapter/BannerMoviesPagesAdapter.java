@@ -1,5 +1,7 @@
 package com.example.sinemaproject.adapter;
 
+import static com.example.sinemaproject.MainActivity.FavoriteMovies;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -56,7 +58,7 @@ public class BannerMoviesPagesAdapter extends PagerAdapter {
         bannerImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(context,""+bannerMoviesList.get(position).getMovieName(), Toast.LENGTH_SHORT).show();
+                boolean fav = FavoriteMovies.contains(bannerMoviesList.get(position).getId());
                 Intent i = new Intent(context, MovieDetails.class);
                 i.putExtra("movieId", bannerMoviesList.get(position).getId());
                 i.putExtra("movieName", bannerMoviesList.get(position).getMovieName());
@@ -67,10 +69,10 @@ public class BannerMoviesPagesAdapter extends PagerAdapter {
                 i.putExtra("movieEnded", bannerMoviesList.get(position).getEnded());
                 i.putExtra("movieSummary", bannerMoviesList.get(position).getSummary());
                 i.putExtra("movieGenres", bannerMoviesList.get(position).getGenres());
+                i.putExtra("fav", fav);
                 context.startActivity(i);
             }
         });
-
         return view;
     }
 }

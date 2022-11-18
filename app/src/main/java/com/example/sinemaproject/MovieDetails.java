@@ -31,7 +31,7 @@ public class MovieDetails extends AppCompatActivity {
     String mEnded;
     String mSummary;
     String[] mGenres;
-
+    boolean mfav;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -60,7 +60,15 @@ public class MovieDetails extends AppCompatActivity {
         mEnded = extras.getString("movieEnded");
         mSummary = extras.getString("movieSummary");
         mGenres = extras.getStringArray("movieGenres");
+        mfav = extras.getBoolean("fav");
 
+        if(mfav){
+            Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_favorite);
+            favorite.setImageDrawable(img);
+        }else if(!mfav){
+            Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_nofavorite);
+            favorite.setImageDrawable(img);
+        }
         Glide.with(this).load(mImage).into(movieImage);
         movieName.setText(mName);
         movieLanguage.setText(mLanguage);
@@ -73,25 +81,23 @@ public class MovieDetails extends AppCompatActivity {
         favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("Size", String.valueOf(FavoriteMovies.size()));
                 if(FavoriteMovies.isEmpty()) {
-                    Log.i("Hola", "Fu");
                     Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_favorite);
                     favorite.setImageDrawable(img);
                     FavoriteMovies.add(mId);
                 }else{
-                    for (int i = 0; i < FavoriteMovies.size(); i++) {
-                        Log.i("", "");
-                        if (FavoriteMovies.get(i) == mId) {
-                            Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_nofavorite);
-                            favorite.setImageDrawable(img);
-                            FavoriteMovies.remove(i);
-                        } else {
-                            Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_favorite);
-                            favorite.setImageDrawable(img);
-                            FavoriteMovies.add(mId);
-                        }
+                    if (FavoriteMovies.contains(mId)) {
+                        Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_nofavorite);
+                        favorite.setImageDrawable(img);
+                        FavoriteMovies.remove(FavoriteMovies.indexOf(mId));
+                    } else {
+                        Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_favorite);
+                        favorite.setImageDrawable(img);
+                        FavoriteMovies.add(mId);
                     }
+                }
+                for (int i = 0; i < FavoriteMovies.size(); i++) {
+                    Log.i("FavoriteMovies", String.valueOf(FavoriteMovies.size()));
                 }
             }
         });
