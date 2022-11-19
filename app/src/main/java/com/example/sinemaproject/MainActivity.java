@@ -98,12 +98,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         //Creamos las listas con las diferentes categorias
-        List<CategoryItem> DramaCatListItem1 = new ArrayList<>();
-        List<CategoryItem> ComedyCatListItem1 = new ArrayList<>();
-        List<CategoryItem> ActionCatListItem1 = new ArrayList<>();
-        List<CategoryItem> AventureCatListItem1 = new ArrayList<>();
-        List<CategoryItem> CrimeCatListItem1 = new ArrayList<>();
-        List<CategoryItem> ScienceFictionCatListItem1 = new ArrayList<>();
+        List<CategoryItem> FavMoviesList = null;
+        List<CategoryItem> DramaCatListItem = new ArrayList<>();
+        List<CategoryItem> ComedyCatListItem = new ArrayList<>();
+        List<CategoryItem> ActionCatListItem = new ArrayList<>();
+        List<CategoryItem> AventureCatListItem = new ArrayList<>();
+        List<CategoryItem> CrimeCatListItem = new ArrayList<>();
+        List<CategoryItem> ScienceFictionCatListItem = new ArrayList<>();
         Log.i("Size", String.valueOf(AllDataList.size()));
 
 
@@ -112,34 +113,48 @@ public class MainActivity extends AppCompatActivity {
             for(int i=0;i<item.getGenres().length;i++){
                 Log.i("Size", String.valueOf(item.getGenres()[i]));
                 if(item.getGenres()[i].equalsIgnoreCase("Drama")){
-                    DramaCatListItem1.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                    DramaCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
                 }
                 if(item.getGenres()[i].equalsIgnoreCase("Comedy")){
-                    ComedyCatListItem1.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                    ComedyCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
                 }
                 if(item.getGenres()[i].equalsIgnoreCase("Action")){
-                    ActionCatListItem1.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                    ActionCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
                 }
                 if(item.getGenres()[i].equalsIgnoreCase("Adventure")){
-                    AventureCatListItem1.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                    AventureCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
                 }
                 if(item.getGenres()[i].equalsIgnoreCase("Crime")){
-                    CrimeCatListItem1.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                    CrimeCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
                 }
                 if(item.getGenres()[i].equalsIgnoreCase("Science-Fiction")){
-                    ScienceFictionCatListItem1.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                    ScienceFictionCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
                 }
             }
         }
+        if(!FavoriteMovies.isEmpty()) {
+            FavMoviesList = new ArrayList<>();
 
+            for (AllData item : AllDataList) {
+                for (int i = 0; i < FavoriteMovies.size(); i++) {
+                    if (item.getId() == FavoriteMovies.get(i)){
+                        FavMoviesList.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                    }
+                    Log.i("Fav", String.valueOf(AllDataList.get(15).getId()));
+                }
+            }
+        }
         //Añadimos las categorias para mostrarlas en el main con sus peliculas
         allCategoryList = new ArrayList<>();
-        allCategoryList.add(new AllCategory(1, "Drama", DramaCatListItem1));
-        allCategoryList.add(new AllCategory(2, "Comedia", ComedyCatListItem1));
-        allCategoryList.add(new AllCategory(3, "Acción",ActionCatListItem1));
-        allCategoryList.add(new AllCategory(4, "Aventura",AventureCatListItem1));
-        allCategoryList.add(new AllCategory(5, "Suspense",CrimeCatListItem1));
-        allCategoryList.add(new AllCategory(6, "Ciencia-Ficción",ScienceFictionCatListItem1));
+        if(!FavoriteMovies.isEmpty()){
+            allCategoryList.add(new AllCategory(1, "Favoritas", FavMoviesList));
+        }
+        allCategoryList.add(new AllCategory(2, "Drama", DramaCatListItem));
+        allCategoryList.add(new AllCategory(3, "Comedia", ComedyCatListItem));
+        allCategoryList.add(new AllCategory(4, "Acción",ActionCatListItem));
+        allCategoryList.add(new AllCategory(5, "Aventura",AventureCatListItem));
+        allCategoryList.add(new AllCategory(6, "Suspense",CrimeCatListItem));
+        allCategoryList.add(new AllCategory(7, "Ciencia-Ficción",ScienceFictionCatListItem));
 
         //Pasamos el array de categorias al recycler
         setMainRecycler(allCategoryList);
@@ -204,46 +219,20 @@ public class MainActivity extends AppCompatActivity {
         Gson gson = new Gson();
         String json = gson.toJson(FavoriteMovies);
 
-        // below line is to save data in shared
-        // prefs in the form of string.
         editor.putString("courses", json);
-
-        // below line is to apply changes
-        // and save data in shared prefs.
         editor.apply();
-
-        // after saving data we are displaying a toast message.
-        Toast.makeText(this, "Saved Array List to Shared preferences. ", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "Saved Array List to Shared preferences. ", Toast.LENGTH_SHORT).show();
     }
 
+    //Cargamos los favoritos de Shared Pref
     private void loadData(){
-        // method to load arraylist from shared prefs
-        // initializing our shared prefs with name as
-        // shared preferences.
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-
-        // creating a variable for gson.
         Gson gson = new Gson();
-
-        // below line is to get to string present from our
-        // shared prefs if not present setting it as null.
         String json = sharedPreferences.getString("courses", null);
-
-        // below line is to get the type of our array list.
         Type type = new TypeToken<ArrayList<Integer>>() {}.getType();
-
-        // in below line we are getting data from gson
-        // and saving it to our array list
         FavoriteMovies = gson.fromJson(json, type);
-
-        // checking below if the array list is empty or not
         if (FavoriteMovies == null) {
-            // if the array list is empty
-            // creating a new array list.
             FavoriteMovies = new ArrayList<>();
         }
     }
-
-
-
 }
