@@ -58,7 +58,7 @@ public class BannerMoviesPagesAdapter extends PagerAdapter {
         bannerImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean fav = FavoriteMovies.contains(bannerMoviesList.get(position).getId());
+                boolean fav = FavoriteMovies.contains(bannerMoviesList.get(position).getMovieName());
                 Intent i = new Intent(context, MovieDetails.class);
                 i.putExtra("movieId", bannerMoviesList.get(position).getId());
                 i.putExtra("movieName", bannerMoviesList.get(position).getMovieName());
@@ -69,6 +69,7 @@ public class BannerMoviesPagesAdapter extends PagerAdapter {
                 i.putExtra("movieEnded", bannerMoviesList.get(position).getEnded());
                 i.putExtra("movieSummary", bannerMoviesList.get(position).getSummary());
                 i.putExtra("movieGenres", bannerMoviesList.get(position).getGenres());
+                i.putExtra("movieRating", bannerMoviesList.get(position).getRating());
                 i.putExtra("fav", fav);
                 context.startActivity(i);
             }

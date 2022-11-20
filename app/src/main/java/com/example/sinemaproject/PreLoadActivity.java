@@ -88,7 +88,7 @@ public class PreLoadActivity extends AppCompatActivity {
                         int size = exampleList.size();
                         String[] GenresstringArray = exampleList.toArray(new String[size]);
 
-                        Double rating = Object.getJSONObject("rating").isNull("rating") ? 0.0 : Object.getJSONObject("rating").getDouble("average");
+                        String rating = Object.getJSONObject("rating").getString("average").toString() == null ? "0.0" : Object.getJSONObject("rating").getString("average");
                         String imageOriginal = Object.getJSONObject("image").getString("original");
                         String imageMedium= Object.getJSONObject("image").getString("medium");
                         AllData allData = new AllData(id,name,language,status,premiered,ended,summary,GenresstringArray,rating,imageOriginal,imageMedium);

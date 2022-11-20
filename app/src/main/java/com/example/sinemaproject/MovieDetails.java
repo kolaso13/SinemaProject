@@ -23,7 +23,7 @@ import java.util.Arrays;
 public class MovieDetails extends AppCompatActivity {
 
     ImageView movieImage, favorite;
-    TextView movieName, movieLanguage, movieStatus, moviePremiered, movieEnded, movieSummary, moviegenres;
+    TextView movieName, movieLanguage, movieStatus, moviePremiered, movieEnded, movieSummary, moviegenres, movieRating;
     String mName;
     String mImage;
     int mId;
@@ -32,6 +32,7 @@ public class MovieDetails extends AppCompatActivity {
     String mPremiered;
     String mEnded;
     String mSummary;
+    String mRating;
     String[] mGenres;
     boolean mfav;
 
@@ -49,6 +50,7 @@ public class MovieDetails extends AppCompatActivity {
         moviePremiered = findViewById(R.id.premiered);
         movieEnded = findViewById(R.id.ended);
         movieSummary = findViewById(R.id.Summary);
+        movieRating = findViewById(R.id.rating);
         moviegenres = findViewById(R.id.genres);
 
         Bundle extras = getIntent().getExtras();
@@ -62,7 +64,9 @@ public class MovieDetails extends AppCompatActivity {
         mEnded = extras.getString("movieEnded");
         mSummary = extras.getString("movieSummary");
         mGenres = extras.getStringArray("movieGenres");
+        mRating = extras.getString("movieRating");
         mfav = extras.getBoolean("fav");
+
 
         if(mfav){
             Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_favorite);
@@ -78,6 +82,7 @@ public class MovieDetails extends AppCompatActivity {
         moviePremiered.setText(mPremiered);
         movieEnded.setText(mEnded);
         movieSummary.setText(mSummary.replaceAll("<[^>]*>", ""));
+        movieRating.setText(mRating);
         moviegenres.setText(Arrays.toString(mGenres).replaceAll("\\[|\\]", ""));
 
         favorite.setOnClickListener(new View.OnClickListener() {
@@ -86,20 +91,20 @@ public class MovieDetails extends AppCompatActivity {
                 if(FavoriteMovies.isEmpty()) {
                     Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_favorite);
                     favorite.setImageDrawable(img);
-                    FavoriteMovies.add(mId);
+                    FavoriteMovies.add(mName);
                 }else{
-                    if (FavoriteMovies.contains(mId)) {
+                    if (FavoriteMovies.contains(mName)) {
                         Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_nofavorite);
                         favorite.setImageDrawable(img);
-                        FavoriteMovies.remove(FavoriteMovies.indexOf(mId));
+                        FavoriteMovies.remove(FavoriteMovies.indexOf(mName));
                     } else {
                         Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_favorite);
                         favorite.setImageDrawable(img);
-                        FavoriteMovies.add(mId);
+                        FavoriteMovies.add(mName);
                     }
                 }
                 for (int i = 0; i < FavoriteMovies.size(); i++) {
-                    Log.i("FavoriteMovies", String.valueOf(FavoriteMovies.size()));
+                    Log.i("FavoriteMovies", String.valueOf(FavoriteMovies.get(i)));
                 }
                 saveData();
             }
@@ -115,7 +120,9 @@ public class MovieDetails extends AppCompatActivity {
         String json = gson.toJson(FavoriteMovies);
 
         editor.putString("courses", json);
+
         editor.apply();
-//        Toast.makeText(this, "Saved Array List to Shared preferences. ", Toast.LENGTH_SHORT).show();
+
+//        editor.clear().apply();
     }
 }

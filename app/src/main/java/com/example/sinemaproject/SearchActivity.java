@@ -41,7 +41,7 @@ public class SearchActivity extends AppCompatActivity implements SearchView.OnQu
 
         search_movies = new ArrayList<>();
         for (AllData item:AllDataList) {
-            search_movies.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+            search_movies.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres(), item.getRating()));
         }
         searchRecyclerAdapter = new SearchRecyclerAdapter(search_movies, this);
         RecyclerView recyclerView = findViewById(R.id.rvLista);

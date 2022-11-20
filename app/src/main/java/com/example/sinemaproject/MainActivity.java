@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager bannerMoviesViewPager;
     List<BannerMovies> homeBannerList;
 
-    public static List<Integer> FavoriteMovies;
+    public static List<String> FavoriteMovies;
 
     MainRecyclerAdapter mainRecyclerAdapter;
     RecyclerView mainRecycler;
@@ -86,10 +86,10 @@ public class MainActivity extends AppCompatActivity {
 
         //Añadimos series random para el carrusel
         homeBannerList = new ArrayList<>();
-        homeBannerList.add(new BannerMovies(AllDataList.get(randomN1).getId(), AllDataList.get(randomN1).getName(), AllDataList.get(randomN1).getImageOriginal(), AllDataList.get(randomN1).getLanguage(), AllDataList.get(randomN1).getStatus(), AllDataList.get(randomN1).getPremiered(), AllDataList.get(randomN1).getEnded(), AllDataList.get(randomN1).getSummary(), AllDataList.get(randomN1).getGenres()));
-        homeBannerList.add(new BannerMovies(AllDataList.get(randomN2).getId(), AllDataList.get(randomN2).getName(), AllDataList.get(randomN2).getImageOriginal(), AllDataList.get(randomN2).getLanguage(), AllDataList.get(randomN2).getStatus(), AllDataList.get(randomN2).getPremiered(), AllDataList.get(randomN2).getEnded(), AllDataList.get(randomN2).getSummary(), AllDataList.get(randomN2).getGenres()));
-        homeBannerList.add(new BannerMovies(AllDataList.get(randomN3).getId(), AllDataList.get(randomN3).getName(), AllDataList.get(randomN3).getImageOriginal(), AllDataList.get(randomN3).getLanguage(), AllDataList.get(randomN3).getStatus(), AllDataList.get(randomN3).getPremiered(), AllDataList.get(randomN3).getEnded(), AllDataList.get(randomN3).getSummary(), AllDataList.get(randomN3).getGenres()));
-        homeBannerList.add(new BannerMovies(AllDataList.get(randomN4).getId(), AllDataList.get(randomN4).getName(), AllDataList.get(randomN4).getImageOriginal(), AllDataList.get(randomN4).getLanguage(), AllDataList.get(randomN4).getStatus(), AllDataList.get(randomN4).getPremiered(), AllDataList.get(randomN4).getEnded(), AllDataList.get(randomN4).getSummary(), AllDataList.get(randomN4).getGenres()));
+        homeBannerList.add(new BannerMovies(AllDataList.get(randomN1).getId(), AllDataList.get(randomN1).getName(), AllDataList.get(randomN1).getImageOriginal(), AllDataList.get(randomN1).getLanguage(), AllDataList.get(randomN1).getStatus(), AllDataList.get(randomN1).getPremiered(), AllDataList.get(randomN1).getEnded(), AllDataList.get(randomN1).getSummary(), AllDataList.get(randomN1).getGenres(), AllDataList.get(randomN1).getRating()));
+        homeBannerList.add(new BannerMovies(AllDataList.get(randomN2).getId(), AllDataList.get(randomN2).getName(), AllDataList.get(randomN2).getImageOriginal(), AllDataList.get(randomN2).getLanguage(), AllDataList.get(randomN2).getStatus(), AllDataList.get(randomN2).getPremiered(), AllDataList.get(randomN2).getEnded(), AllDataList.get(randomN2).getSummary(), AllDataList.get(randomN2).getGenres(), AllDataList.get(randomN2).getRating()));
+        homeBannerList.add(new BannerMovies(AllDataList.get(randomN3).getId(), AllDataList.get(randomN3).getName(), AllDataList.get(randomN3).getImageOriginal(), AllDataList.get(randomN3).getLanguage(), AllDataList.get(randomN3).getStatus(), AllDataList.get(randomN3).getPremiered(), AllDataList.get(randomN3).getEnded(), AllDataList.get(randomN3).getSummary(), AllDataList.get(randomN3).getGenres(), AllDataList.get(randomN3).getRating()));
+        homeBannerList.add(new BannerMovies(AllDataList.get(randomN4).getId(), AllDataList.get(randomN4).getName(), AllDataList.get(randomN4).getImageOriginal(), AllDataList.get(randomN4).getLanguage(), AllDataList.get(randomN4).getStatus(), AllDataList.get(randomN4).getPremiered(), AllDataList.get(randomN4).getEnded(), AllDataList.get(randomN4).getSummary(), AllDataList.get(randomN4).getGenres(), AllDataList.get(randomN4).getRating()));
 
         //Añadimos las series al adaptador
         setBannerMoviesPagesAdapter(homeBannerList);
@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         List<CategoryItem> AventureCatListItem = new ArrayList<>();
         List<CategoryItem> CrimeCatListItem = new ArrayList<>();
         List<CategoryItem> ScienceFictionCatListItem = new ArrayList<>();
-        Log.i("Size", String.valueOf(AllDataList.size()));
 
 
         //Filtramos en las categorias todos los datos recogidos de la API
@@ -111,22 +110,22 @@ public class MainActivity extends AppCompatActivity {
             for(int i=0;i<item.getGenres().length;i++){
                 Log.i("Size", String.valueOf(item.getGenres()[i]));
                 if(item.getGenres()[i].equalsIgnoreCase("Drama")){
-                    DramaCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                    DramaCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres(), item.getRating()));
                 }
                 if(item.getGenres()[i].equalsIgnoreCase("Comedy")){
-                    ComedyCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                    ComedyCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres(), item.getRating()));
                 }
                 if(item.getGenres()[i].equalsIgnoreCase("Action")){
-                    ActionCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                    ActionCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres(), item.getRating()));
                 }
                 if(item.getGenres()[i].equalsIgnoreCase("Adventure")){
-                    AventureCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                    AventureCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres(), item.getRating()));
                 }
                 if(item.getGenres()[i].equalsIgnoreCase("Crime")){
-                    CrimeCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                    CrimeCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres(), item.getRating()));
                 }
                 if(item.getGenres()[i].equalsIgnoreCase("Science-Fiction")){
-                    ScienceFictionCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                    ScienceFictionCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres(), item.getRating()));
                 }
             }
         }
@@ -135,10 +134,11 @@ public class MainActivity extends AppCompatActivity {
 
             for (AllData item : AllDataList) {
                 for (int i = 0; i < FavoriteMovies.size(); i++) {
-                    if (item.getId() == FavoriteMovies.get(i)){
-                        FavMoviesList.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres()));
+                    Log.i("Nombre", item.getName());
+                    if (item.getName().equalsIgnoreCase(FavoriteMovies.get(i))){
+                        FavMoviesList.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres(), item.getRating()));
                     }
-                    Log.i("Fav", String.valueOf(AllDataList.get(15).getId()));
+                    Log.i("Fav", String.valueOf(AllDataList.get(169).getId()));
                 }
             }
         }
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("courses", null);
-        Type type = new TypeToken<ArrayList<Integer>>() {}.getType();
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
         FavoriteMovies = gson.fromJson(json, type);
         if (FavoriteMovies == null) {
             FavoriteMovies = new ArrayList<>();

@@ -7,11 +7,12 @@ import java.util.ArrayList;
 
 public class AllData {
     Integer id;
-    Double rating;
+    String rating;
     String name, language, status, premiered, ended, summary,imageOriginal,imageMedium;
     String[] genres;
 
-    public AllData(Integer id, String name, String language, String status, String premiered, String ended, String summary, String[] genres, Double rating, String imageOriginal, String imageMedium) {
+
+    public AllData(Integer id, String name, String language, String status, String premiered, String ended, String summary, String[] genres, String rating, String imageOriginal, String imageMedium) {
         this.id = id;
         this.name = name;
         this.language = language;
@@ -105,11 +106,11 @@ public class AllData {
         this.genres = genres;
     }
 
-    public Double getRating() {
+    public String getRating() {
         return rating;
     }
 
-    public void setRating(Double rating) {
+    public void setRating(String rating) {
         this.rating = rating;
     }
 

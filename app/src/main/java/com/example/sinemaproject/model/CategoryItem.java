@@ -3,10 +3,13 @@ package com.example.sinemaproject.model;
 public class CategoryItem {
 
     Integer id;
-    String movieName, imageUrl, language, status, premiered, ended, summary;
+    String movieName, imageUrl, language, status, premiered, ended, summary,rating;
     String[] genres;
 
-    public CategoryItem(Integer id, String movieName, String imageUrl, String language, String status, String premiered, String ended, String summary, String[] genres) {
+
+
+
+    public CategoryItem(Integer id, String movieName, String imageUrl, String language, String status, String premiered, String ended, String summary, String[] genres, String rating) {
         this.id = id;
         this.movieName = movieName;
         this.imageUrl = imageUrl;
@@ -16,6 +19,7 @@ public class CategoryItem {
         this.ended = ended;
         this.summary = summary;
         this.genres = genres;
+        this.rating= rating;
     }
 
     public Integer getId() {
@@ -89,4 +93,8 @@ public class CategoryItem {
     public void setGenres(String[] genres) {
         this.genres = genres;
     }
+
+    public String getRating() {return rating;}
+
+    public void setRating(String rating) {this.rating = rating;}
 }

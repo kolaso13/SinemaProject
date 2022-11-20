@@ -27,6 +27,44 @@
             android:layout_marginTop="16dp"
             app:layout_constraintStart_toEndOf="@+id/search_Image"
             app:layout_constraintTop_toTopOf="@+id/search_Image" />
+
+        <TextView
+            android:id="@+id/search_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:text="TextView"
+            app:layout_constraintBottom_toBottomOf="@+id/search_title"
+            app:layout_constraintStart_toEndOf="@+id/search_title"
+            app:layout_constraintTop_toTopOf="@+id/search_title"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/search_rating"
+            app:layout_constraintStart_toEndOf="@+id/search_rating"
+            app:layout_constraintTop_toTopOf="@+id/search_rating"
+            app:srcCompat="@drawable/ic_action_star" />
+
+        <TextView
+            android:id="@+id/summary"
+            android:layout_width="228dp"
+            android:layout_height="67dp"
+            android:layout_marginTop="20dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/search_title"
+            app:layout_constraintTop_toBottomOf="@+id/search_title" />
+
+        <TextView
+            android:id="@+id/search_genres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="TextView"
+            app:layout_constraintStart_toStartOf="@+id/summary"
+            app:layout_constraintTop_toBottomOf="@+id/summary" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
