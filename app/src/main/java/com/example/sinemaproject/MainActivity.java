@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity {
     List<BannerMovies> homeBannerList;
 
     public static List<Integer> FavoriteMovies;
-    TextView appTitle;
 
     MainRecyclerAdapter mainRecyclerAdapter;
     RecyclerView mainRecycler;
@@ -74,7 +73,6 @@ public class MainActivity extends AppCompatActivity {
 
         indicatorTab = findViewById(R.id.tab_indicator);
         search = findViewById(R.id.search);
-        appTitle = findViewById(R.id.applicationTitle);
 
         // llamada al metodo para cargar las preferencias
         loadData();
@@ -168,13 +166,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Boton para guardar preferencias
-        appTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveData();
-            }
-        });
+
     }
 
 
@@ -209,19 +201,6 @@ public class MainActivity extends AppCompatActivity {
         mainRecycler.setLayoutManager(layoutManager);
         mainRecyclerAdapter = new MainRecyclerAdapter(this, allCategoryList);
         mainRecycler.setAdapter(mainRecyclerAdapter);
-    }
-
-    //Guardamos los favoritos en Shared Pref
-    private void saveData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        Gson gson = new Gson();
-        String json = gson.toJson(FavoriteMovies);
-
-        editor.putString("courses", json);
-        editor.apply();
-//        Toast.makeText(this, "Saved Array List to Shared preferences. ", Toast.LENGTH_SHORT).show();
     }
 
     //Cargamos los favoritos de Shared Pref

@@ -6,6 +6,7 @@ import static java.security.AccessController.getContext;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.Gson;
 
 import java.util.Arrays;
 
@@ -99,7 +101,21 @@ public class MovieDetails extends AppCompatActivity {
                 for (int i = 0; i < FavoriteMovies.size(); i++) {
                     Log.i("FavoriteMovies", String.valueOf(FavoriteMovies.size()));
                 }
+                saveData();
             }
         });
+    }
+
+    //Guardamos los favoritos en Shared Pref
+    private void saveData() {
+        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Gson gson = new Gson();
+        String json = gson.toJson(FavoriteMovies);
+
+        editor.putString("courses", json);
+        editor.apply();
+//        Toast.makeText(this, "Saved Array List to Shared preferences. ", Toast.LENGTH_SHORT).show();
     }
 }
