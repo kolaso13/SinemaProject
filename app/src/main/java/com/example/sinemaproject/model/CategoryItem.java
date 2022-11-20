@@ -6,9 +6,6 @@ public class CategoryItem {
     String movieName, imageUrl, language, status, premiered, ended, summary,rating;
     String[] genres;
 
-
-
-
     public CategoryItem(Integer id, String movieName, String imageUrl, String language, String status, String premiered, String ended, String summary, String[] genres, String rating) {
         this.id = id;
         this.movieName = movieName;

@@ -79,10 +79,10 @@ public class MainActivity extends AppCompatActivity {
 
         //Numeros random para el carrusel
         Random r = new Random();
-        int randomN1 = r.nextInt(AllDataList.size());
-        int randomN2 = r.nextInt(AllDataList.size());
-        int randomN3 = r.nextInt(AllDataList.size());
-        int randomN4 = r.nextInt(AllDataList.size());
+        int randomN1 = Math.abs(r.nextInt(AllDataList.size()));
+        int randomN2 = Math.abs(r.nextInt(AllDataList.size()));
+        int randomN3 = Math.abs(r.nextInt(AllDataList.size()));
+        int randomN4 = Math.abs(r.nextInt(AllDataList.size()));
 
         //Añadimos series random para el carrusel
         homeBannerList = new ArrayList<>();
@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         //Filtramos en las categorias todos los datos recogidos de la API
         for (AllData item:AllDataList) {
             for(int i=0;i<item.getGenres().length;i++){
-                Log.i("Size", String.valueOf(item.getGenres()[i]));
                 if(item.getGenres()[i].equalsIgnoreCase("Drama")){
                     DramaCatListItem.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres(), item.getRating()));
                 }
@@ -134,11 +133,9 @@ public class MainActivity extends AppCompatActivity {
 
             for (AllData item : AllDataList) {
                 for (int i = 0; i < FavoriteMovies.size(); i++) {
-                    Log.i("Nombre", item.getName());
                     if (item.getName().equalsIgnoreCase(FavoriteMovies.get(i))){
                         FavMoviesList.add(new CategoryItem(item.getId(), item.getName(), item.getImageOriginal(), item.getLanguage(), item.getStatus(), item.getPremiered(), item.getEnded(), item.getSummary(), item.getGenres(), item.getRating()));
                     }
-                    Log.i("Fav", String.valueOf(AllDataList.get(169).getId()));
                 }
             }
         }

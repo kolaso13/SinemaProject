@@ -75,6 +75,7 @@ public class MovieDetails extends AppCompatActivity {
             Drawable img = favorite.getResources().getDrawable(R.drawable.ic_action_nofavorite);
             favorite.setImageDrawable(img);
         }
+
         Glide.with(this).load(mImage).into(movieImage);
         movieName.setText(mName);
         movieLanguage.setText(mLanguage);
@@ -102,9 +103,6 @@ public class MovieDetails extends AppCompatActivity {
                         favorite.setImageDrawable(img);
                         FavoriteMovies.add(mName);
                     }
-                }
-                for (int i = 0; i < FavoriteMovies.size(); i++) {
-                    Log.i("FavoriteMovies", String.valueOf(FavoriteMovies.get(i)));
                 }
                 saveData();
             }

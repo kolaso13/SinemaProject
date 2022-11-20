@@ -36,8 +36,6 @@ public class PreLoadActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pre_load);
         progressBar = findViewById(R.id.progressBar);
-
-
         new Task1().execute();
     }
 
@@ -93,7 +91,6 @@ public class PreLoadActivity extends AppCompatActivity {
                         String imageMedium= Object.getJSONObject("image").getString("medium");
                         AllData allData = new AllData(id,name,language,status,premiered,ended,summary,GenresstringArray,rating,imageOriginal,imageMedium);
                         AllDataList.add(allData);
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

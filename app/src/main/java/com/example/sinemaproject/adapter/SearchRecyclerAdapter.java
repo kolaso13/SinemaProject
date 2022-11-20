@@ -87,7 +87,6 @@ public class SearchRecyclerAdapter extends RecyclerView.Adapter<SearchRecyclerAd
     }
 
     public void filter(String strSearch){
-        Log.i("Text", strSearch);
         if(strSearch.length() == 0){
             searchList.clear();
             searchList.addAll(original_searchList);
