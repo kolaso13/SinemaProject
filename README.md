@@ -12,7 +12,6 @@
 - Haciendo clic en cualquier imagen de serie cargara el MovieDetails de su respectiva serie.
 
 #### SearchActivity:
-- Se puede usar el buscador para buscar la serie que se quiera.
 - Para buscar una serie después de haber buscado otra o estar buscando una, se debe pulsar la X que aparece en el buscador para buscar la nueva serie.
 - Aparecen tarjetas con información superficial de la serie. Haciendo clic en estas cargara el MovieDetails de su respectiva serie.
 
