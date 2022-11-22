@@ -30,6 +30,6 @@
 - Es posible que los modulos del proyecto no esten sincronizados, para sincronizarlos hay que hacer click en el siguiente boton.
 ![image](https://user-images.githubusercontent.com/72077646/203274527-17cdd783-361e-4b82-a4f3-5ab712204b64.png)
 
-
+- Puede que falte el archivo de local.properties o SDK. No entiendo el motivo, a veces esta, otras veces con el sync del gradle aparece y otras tengo que importalo de otros proyectos
 #### Github del Proyecto https://github.com/kolaso13/SinemaProject.git
 
