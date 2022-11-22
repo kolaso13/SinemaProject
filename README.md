@@ -24,7 +24,7 @@
 - Se puede buscar la pelicula segun su genero en las listas prediseñadas del Main activity.
 - Se pueden buscar peliculas segun su nombre en el buscador.
 - En el MovieDetailsActivity haciendo clic en el corazón, se puede marcar esa serie como favorita. Siempre aparecerá como favorita hasta que volvamos a hacer clic.
-
+- Para ver la lista de series favoritas se debe reiniciar la aplicación.
 
 # 3. **Posibles problemas al importar el proyecto:**
 - Es posible que los modulos del proyecto no esten sincronizados, para sincronizarlos hay que hacer click en el siguiente boton.
