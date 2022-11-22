@@ -26,6 +26,10 @@
 - En el MovieDetailsActivity haciendo clic en el corazón, se puede marcar esa serie como favorita. Siempre aparecerá como favorita hasta que volvamos a hacer clic.
 
 
+# 3. **Posibles problemas al importar el proyecto:**
+- Es posible que los modulos del proyecto no esten sincronizados, para sincronizarlos hay que hacer click en el siguiente boton.
+![image](https://user-images.githubusercontent.com/72077646/203274527-17cdd783-361e-4b82-a4f3-5ab712204b64.png)
+
 
 #### Github del Proyecto https://github.com/kolaso13/SinemaProject.git
 
